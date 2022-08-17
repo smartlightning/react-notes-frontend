@@ -10,11 +10,15 @@ const NotesDashboard = () => {
     const handleDeleteNote =  () => {
         alert('Request to delete note') 
     }
+
+    const handleEdit = () => {
+      alert('Request to edit')
+    }
   return (
     <div>
         <h1>Welcome to your notes dashboard</h1>
         <h3>See an overview of all the notes you have here</h3>
-        <Note handleDeleteNote={handleDeleteNote} />
+        <Note handleEdit = {handleEdit} handleDeleteNote={handleDeleteNote} />
     </div>
   )
 }
