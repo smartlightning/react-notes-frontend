@@ -7,44 +7,41 @@ import {
   Typography,
 } from '@mui/material';
 import { FC } from 'react';
+import { NoteProps } from '../../types/noteInterface';
 
-interface CardInterface {
-  title: string,
-  date: string;
-  author: string;
-  text: string;
-  handleDelete: () => void;
-  handleEdit: () => void;
+interface NotesInterface {
+  note: NoteProps;
+  handleDelete: (id: string) => void;
+  handleEdit: (id: string) => void;
 }
-const BasicNote: FC<CardInterface> = ({ date, author, title,  text, handleDelete, handleEdit }) => {
+const Note: FC<NotesInterface> = ({ note, handleDelete, handleEdit }) => {
   return (
-    <div style= {{textAlign: 'left'}}>
+    <div style={{ textAlign: 'left' }}>
       <Card sx={{ maxWidth: 300, backgroundColor: '#F7ECDE' }}>
         <CardContent>
           <Typography variant='h5' component='div'>
-            {title}
+            {note.title}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-            Date: {date}
+            Date: {note.date}
           </Typography>
           <Typography variant='body2'>
-            Author: {author}
+            Author: {note.author}
             <br />
-            {text}
+            {note.text}
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton onClick={handleDelete} size='small'>
+          <IconButton onClick={() => handleDelete(note.id)} size='small'>
             <DeleteOutlined />
           </IconButton>
-          <IconButton onClick={handleEdit} size='small'>
+          <IconButton onClick={() => handleEdit(note.id)} size='small'>
             <EditOutlined />
           </IconButton>
-
         </CardActions>
       </Card>
     </div>
   );
 };
 
-export default BasicNote;
+export default Note;
