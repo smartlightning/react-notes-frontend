@@ -19,16 +19,14 @@ const NotesList: FC<NotesListProps> = ({ notes }) => {
   };
   return (
     <div>
-      {notes.map((item) => {
-        <Note
-          author={item.author}
-          date={item.date}
-          handleDelete={handleDeleteNote}
-          handleEdit={handleEdit}
-          text={item.text}
-          title={item.title}
-          id={item.id}
-        />;
+      {notes.map((note) => {
+        return (
+          <Note
+            note={note}
+            handleDelete={handleDeleteNote}
+            handleEdit={handleEdit}
+          />
+        );
       })}
     </div>
   );

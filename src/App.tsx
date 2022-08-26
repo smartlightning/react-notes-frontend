@@ -5,20 +5,18 @@ import uuid4 from 'uuid4';
 import { NoteProps } from './types/noteInterface';
 
 function App() {
-  interface AppProps {
-    notes: NoteProps[]
-  }
-  const [notes, setNotes] = useState<AppProps>({
+  
+  const [notes, setNotes] = useState<NoteProps[]>([{
     id: uuid4(),
     title: 'Example title',
     text: 'Example note',
     date: '12/12/1998',
     author: 'me',
-  });
+  }]);
 
   return (
     <div className='App'>
-      <NotesList notes={notes} />
+      <NotesList notes={notes}/>
     </div>
   );
 }
