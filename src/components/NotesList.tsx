@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Note from '../components/common/Note';
+import Note from './common/Note';
 import { NoteProps } from '../types/noteInterface';
 
 interface NotesListProps {
@@ -19,9 +19,10 @@ const NotesList: FC<NotesListProps> = ({ notes }) => {
   };
   return (
     <div>
-      {notes.map((note) => {
+      {notes.map((note, index) => {
         return (
           <Note
+            key = {index}
             note={note}
             handleDelete={handleDeleteNote}
             handleEdit={handleEdit}

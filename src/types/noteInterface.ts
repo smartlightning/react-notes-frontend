@@ -5,3 +5,4 @@ export interface NoteProps {
   author: string;
   text: string;
 }
+export type Noteslist = NoteProps[];
