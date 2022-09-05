@@ -4,7 +4,9 @@ import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { NOTES } from '../Router';
+import { authService } from '../services/authService';
 import { LoginProps } from '../types/loginInterface';
+import { AuthData } from '../types/authenticationInterface';
 
 /* 
 const validationSchema = yup.object({
@@ -18,15 +20,20 @@ const validationSchema = yup.object({
     .required('Password is required'),
 }); */
 const Login = () => {
+  const authenticateUser = (values: AuthData) => {
+    //post request user login
+    authService.login(values).then((res) => console.log(res.data));
+  };
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
     },
     // validationSchema: validationSchema,
     onSubmit: (values: LoginProps) => {
-      
-    //  alert(JSON.stringify(values, null, 2));
+      authenticateUser(values);
+
+      alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -35,13 +42,13 @@ const Login = () => {
       <form onSubmit={formik.handleSubmit}>
         <TextField
           fullWidth
-          id='email'
-          name='email'
-          label='Email'
-          value={formik.values.email}
+          id='username'
+          name='username'
+          label='Username'
+          value={formik.values.username}
           onChange={formik.handleChange}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
         />
         <TextField
           fullWidth
@@ -54,14 +61,14 @@ const Login = () => {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
         />
-        <Link to={NOTES}>
+        {/* <Link to={NOTES}> */}
           <Button color='primary' variant='contained' fullWidth type='submit'>
             Submit
           </Button>
-        </Link>
+        {/* </Link> */}
       </form>
     </Grid>
   );
-}
+};
 
 export default Login
