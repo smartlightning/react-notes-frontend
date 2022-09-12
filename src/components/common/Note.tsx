@@ -20,22 +20,22 @@ const Note: FC<NotesInterface> = ({ note, handleDelete, handleEdit }) => {
       <Card sx={{ maxWidth: 300, backgroundColor: '#F7ECDE' }}>
         <CardContent>
           <Typography variant='h5' component='div'>
-            {note.title}
+            {note.notesTitle}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-            Date: {note.date}
+            Date: {note.createdAt}
           </Typography>
           <Typography variant='body2'>
-            Author: {note.author}
+            Author: {note.username}
             <br />
-            {note.text}
+            {note.note}
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton onClick={() => handleDelete(note.id)} size='small'>
+          <IconButton onClick={() => handleDelete(note.noteId)} size='small'>
             <DeleteOutlined />
           </IconButton>
-          <IconButton onClick={() => handleEdit(note.id)} size='small'>
+          <IconButton onClick={() => handleEdit(note.noteId)} size='small'>
             <EditOutlined />
           </IconButton>
         </CardActions>

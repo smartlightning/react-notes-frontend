@@ -7,6 +7,7 @@ import { NOTES } from '../Router';
 import { authService } from '../services/authService';
 import { LoginProps } from '../types/loginInterface';
 import { AuthData } from '../types/authenticationInterface';
+import { useState } from 'react';
 
 /* 
 const validationSchema = yup.object({
@@ -20,10 +21,13 @@ const validationSchema = yup.object({
     .required('Password is required'),
 }); */
 const Login = () => {
-  const authenticateUser = (values: AuthData) => {
+  const authenticateUser = async (values: AuthData) => {
     //post request user login
-    authService.login(values).then((res) => console.log(res.data));
+    await authService.login(values).then((res) => {
+      sessionStorage.setItem('token', res.data.jwt);
+    });
   };
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -32,8 +36,6 @@ const Login = () => {
     // validationSchema: validationSchema,
     onSubmit: (values: LoginProps) => {
       authenticateUser(values);
-
-      alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -61,10 +63,11 @@ const Login = () => {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
         />
-        {/* <Link to={NOTES}> */}
-          <Button color='primary' variant='contained' fullWidth type='submit'>
-            Submit
-          </Button>
+
+         {/* <Link to={NOTES}> */}
+        <Button color='primary' variant='contained' fullWidth type='submit'>
+          Submit
+        </Button>
         {/* </Link> */}
       </form>
     </Grid>

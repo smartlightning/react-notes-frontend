@@ -1,8 +1,10 @@
+
+
 export interface NoteProps {
-  id: string;
-  title: string;
-  date: string;
-  author: string;
-  text: string;
+  noteId: string;
+  notesTitle: string;
+  createdAt: string;
+  username: string;
+  note?: Map<string, string>;
 }
 export type Noteslist = NoteProps[];
