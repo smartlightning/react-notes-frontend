@@ -1,9 +1,6 @@
 
-import { Button, Grid, Paper, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
-import * as yup from 'yup';
-import { NOTES } from '../Router';
 import { authService } from '../services/authService';
 import { LoginProps } from '../types/loginInterface';
 import { AuthData } from '../types/authenticationInterface';

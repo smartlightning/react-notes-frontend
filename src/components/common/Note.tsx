@@ -29,7 +29,7 @@ const Note: FC<NotesInterface> = ({ note, handleDelete, handleEdit }) => {
           <Typography variant='body2'>
             Author: {note.username}
             <br />
-            {note.note}
+           {/*  {note.note} */}
           </Typography>
         </CardContent>
         <CardActions>
