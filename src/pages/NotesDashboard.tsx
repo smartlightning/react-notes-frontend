@@ -8,15 +8,10 @@ import { notesService } from '../services/notesService';
 
 const NotesDashboard = () => {
 
-  const myMap = new Map([
-    ['foo', 'bar'],
-    ['Leo', 'Chris']
-  ])
-
   const [notes, setNotes] = useState<NoteProps[]>([{
     noteId: uuid4(),
     notesTitle: 'Example title',
-    note: myMap,
+    note: 'test',
     createdAt: '12/12/1998',
     username: 'me',
   }]);

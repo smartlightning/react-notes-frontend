@@ -14,6 +14,7 @@ interface NotesInterface {
   handleDelete: (id: string) => void;
   handleEdit: (id: string) => void;
 }
+
 const Note: FC<NotesInterface> = ({ note, handleDelete, handleEdit }) => {
   return (
     <div style={{ textAlign: 'left' }}>

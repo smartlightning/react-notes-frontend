@@ -5,6 +5,6 @@ export interface NoteProps {
   notesTitle: string;
   createdAt: string;
   username: string;
-  note?: Map<string, string>;
+  note?:string;
 }
 export type Noteslist = NoteProps[];
