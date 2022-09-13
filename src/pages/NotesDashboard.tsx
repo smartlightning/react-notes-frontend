@@ -34,29 +34,27 @@ const NotesDashboard = () => {
     navigate(`${NOTE}/${noteId}`);
     setOpenDialog(true);
   };
-  const autoLogout = () => {
-    const user = sessionStorage.getItem('username');
-    if(!user){
-      navigate(ROUTES)
+ 
+  const fetchData = useCallback(async function () {
+    try {
+      const response = await notesService.getAllNotes();
+      let notesArray = response.data.data.documents;
+      setNotes(notesArray);
+    } catch (error) {
+      console.log(error);
     }
-  }
-  const fetchData = useCallback(
-    async function () {
-      try {
-        const response = await notesService.getAllNotes();
-        let notesArray = response.data.data.documents;
-        setNotes(notesArray);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [id]
-  );
+  }, []);
 
   useEffect(() => {
+    const autoLogout = () => {
+      const user = sessionStorage.getItem('username');
+      if (!user) {
+        navigate(ROUTES);
+      }
+    };
     fetchData();
-    autoLogout()
-  }, [fetchData]);
+    autoLogout();
+  }, [fetchData, navigate]);
 
   const handleDeleteNote = () => {
     alert('Request to delete note');
