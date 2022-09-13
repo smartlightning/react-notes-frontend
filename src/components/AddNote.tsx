@@ -1,7 +1,7 @@
-import { InstallMobileOutlined } from '@mui/icons-material';
+
 import { Grid } from '@mui/material';
 import { Form, Formik } from 'formik';
-import { FC, useCallback, useRef } from 'react';
+import { FC, useRef } from 'react';
 import uuid4 from 'uuid4';
 import { notesService } from '../services/notesService';
 import { NoteProps } from '../types/noteInterface';
@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import ButtonWrapper from './common/ButtonWrapper';
 const FORM_VALIDATION = Yup.object().shape({});
 interface AddNoteProps {
-  note: NoteProps;
+  note?: NoteProps | undefined | null;
   closeNoteModal: () => void;
   onSuccess?: Function;
 }
@@ -18,20 +18,20 @@ interface AddNoteProps {
 const getCurrentNoteValues = (note: NoteProps) => {
   if (note) {
     return {
-      id: note.noteId,
-      title: note.notesTitle,
-      date: note.createdAt,
-      author: note.username,
-      noteContent: note.note,
+      noteId: note.noteId,
+      notesTitle: note.notesTitle,
+      createdAt: note.createdAt,
+      username: note.username,
+      note: note.note,
     };
   }
 };
 const getInitialNoteState = () => ({
-  id: uuid4(),
-  title: '',
-  date: '',
-  author: '',
-  noteContent: '',
+  noteId: uuid4(),
+  notesTitle: '',
+  createdAt: '',
+  username: '',
+  note: '',
 });
 const AddNote: FC<AddNoteProps> = ({
   note,
@@ -51,7 +51,7 @@ const AddNote: FC<AddNoteProps> = ({
   };
 
   const updateNote = (valuesToSend: any, resetForm: any) => {
-    if (isMounted.current) {
+    if (isMounted.current && note) {
       notesService
         .updateNote(note.noteId, valuesToSend as any)
         .then(() => {
@@ -95,11 +95,34 @@ const AddNote: FC<AddNoteProps> = ({
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextFieldWrapper
-                    name='title'
+                    name='notesTitle'
                     label='Titel'
                     placeholder='Titel'
                   />
                 </Grid>
+                
+                <Grid item xs={12}>
+                  <TextFieldWrapper
+                    name='note'
+                    label='Notiz'
+                    placeholder='Notiz'
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextFieldWrapper
+                    name='username'
+                    label='Author'
+                    placeholder='Autor'
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextFieldWrapper
+                    name='createdAt'
+                    label='Datum'
+                    placeholder='Datum'
+                  />
+                </Grid>
+              
                 <Grid item xs={12}>
                   <ButtonWrapper>
                     {note ? 'Speichern' : 'Erstellen'}

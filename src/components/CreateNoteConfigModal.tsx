@@ -17,12 +17,13 @@ const CreateNoteConfigModal: FC<CreateNoteConfigModalProps> = ({
   closeNoteModal,
   onSuccess,
 }) => {
-  const [noteData, setNoteData] = useState<NoteProps | null >();
+  const [noteData, setNoteData] = useState<NoteProps | null>();
 
   useEffect(() => {
     //console.log(noteId);
     if (noteId) {
       notesService.getSingleNote(noteId).then((res) => {
+        console.log(res.data);
         setNoteData(res.data);
         
       });
@@ -40,7 +41,7 @@ const CreateNoteConfigModal: FC<CreateNoteConfigModalProps> = ({
     <Dialog fullWidth open={open} onClose={handleClose} scroll='paper'>
       <DialogTitle>{noteId ? 'Notiz bearbeiten' : 'Neue Notiz'}</DialogTitle>
       <DialogContent>
-        {!noteId || noteData && (
+        { (
           <AddNote
             onSuccess={onSuccess}
             closeNoteModal={closeNoteModal}
