@@ -4,7 +4,8 @@ import { useFormik } from 'formik';
 import { authService } from '../services/authService';
 import { LoginProps } from '../types/loginInterface';
 import { AuthData } from '../types/authenticationInterface';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { NOTES } from '../Router';
 
 /* 
 const validationSchema = yup.object({
@@ -18,10 +19,12 @@ const validationSchema = yup.object({
     .required('Password is required'),
 }); */
 const Login = () => {
+  const navigate = useNavigate()
   const authenticateUser = async (values: AuthData) => {
     //post request user login
     await authService.login(values).then((res) => {
       sessionStorage.setItem('token', res.data.jwt);
+      sessionStorage.setItem('username', res.data.username)
     });
   };
 
@@ -33,6 +36,7 @@ const Login = () => {
     // validationSchema: validationSchema,
     onSubmit: (values: LoginProps) => {
       authenticateUser(values);
+      navigate(`${NOTES}`)
     },
   });
 

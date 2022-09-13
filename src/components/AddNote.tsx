@@ -14,15 +14,17 @@ interface AddNoteProps {
   closeNoteModal: () => void;
   onSuccess?: Function;
 }
+// never goes in here!
 
 const getCurrentNoteValues = (note: NoteProps) => {
   if (note) {
+    console.log(note)
     return {
       noteId: note.noteId,
-      notesTitle: note.notesTitle,
+      notesTitle: note?.notesTitle,
       createdAt: note.createdAt,
-      username: note.username,
-      note: note.note,
+      username: note?.username,
+      note: note?.note,
     };
   }
 };
@@ -50,9 +52,9 @@ const AddNote: FC<AddNoteProps> = ({
     return valuesToSend;
   };
 
-  const updateNote = (valuesToSend: any, resetForm: any) => {
+  const updateNote = async (valuesToSend: any, resetForm: any) => {
     if (isMounted.current && note) {
-      notesService
+      await notesService
         .updateNote(note.noteId, valuesToSend as any)
         .then(() => {
           closeNoteModal();
@@ -62,8 +64,8 @@ const AddNote: FC<AddNoteProps> = ({
         .catch((error) => console.log(error));
     }
   };
-  const createNote = (valuesToSend: any, resetForm: any) => {
-    notesService
+  const createNote = async (valuesToSend: any, resetForm: any) => {
+   await notesService
       .createNote(valuesToSend)
       .then(() => {
         resetForm({ values: getInitialNoteState() });
