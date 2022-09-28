@@ -4,11 +4,7 @@ import Router from './Router';
 
 function App() {
   return (
-    <div
-      style={{
-        marginLeft: 'calc((100vw - 1520px) /2)',
-        marginRight: 'calc((100vw - 1520px) /2)',
-      }}>
+    <div style={{ marginRight: 10, marginLeft: 10 }}>
       <Navbar />
       <Router />
     </div>
