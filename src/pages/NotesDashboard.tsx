@@ -67,9 +67,8 @@ const NotesDashboard = () => {
           {notes.map((note, index) => {
             let noteId = note.noteId;
             return (
-              <Grid item>
+              <Grid item key={index}>
                 <Note
-                  key={index}
                   note={note}
                   handleDelete={async () => {
                     await handleDeleteNote(noteId);
