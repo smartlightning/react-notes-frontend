@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import uuid4 from 'uuid4';
 import { NoteProps } from '../types/noteInterface';
 import { notesService } from '../services/notesService';
-import { IconButton } from '@mui/material';
+import { Button, Grid, IconButton } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import CreateNoteConfigModal from '../components/CreateNoteConfigModal';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -34,7 +34,11 @@ const NotesDashboard = () => {
     navigate(`${NOTE}/${noteId}`);
     setOpenDialog(true);
   };
- 
+  const logout = () => {
+    sessionStorage.getItem('username');
+    navigate(ROUTES);
+  };
+
   const fetchData = useCallback(async function () {
     try {
       const response = await notesService.getAllNotes();
@@ -46,40 +50,44 @@ const NotesDashboard = () => {
   }, []);
 
   useEffect(() => {
-    const autoLogout = () => {
-      const user = sessionStorage.getItem('username');
-      if (!user) {
-        navigate(ROUTES);
-      }
-    };
     fetchData();
-    autoLogout();
-  }, [fetchData, navigate]);
+  }, [fetchData]);
 
-  const handleDeleteNote = () => {
-    alert('Request to delete note');
+  const handleDeleteNote = async (id: string) => {
+    try {
+      await notesService.deleteNote(id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className='App'>
       <h1>Notes Dashboard</h1>
       <h2>Find all notes here</h2>
+      <Button onClick={logout}>Logout</Button>
 
       <IconButton onClick={handleOpenDialog}>
         <Add />
       </IconButton>
-      {notes.map((note, index) => {
-        noteId = note.noteId;
+      <div style={{ marginLeft: 10 }}>
+        <Grid container spacing={2} style={{ flex: '1 0 0 ' }}>
+          {notes.map((note, index) => {
+            noteId = note.noteId;
 
-        return (
-          <Note
-            key={index}
-            note={note}
-            handleDelete={handleDeleteNote}
-            handleEdit={(id)=>handleEditNote(id)}
-          />
-        );
-      })}
+            return (
+              <Grid item>
+                <Note
+                  key={index}
+                  note={note}
+                  handleDelete={(id) => handleDeleteNote(id)}
+                  handleEdit={(id) => handleEditNote(id)}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
       <CreateNoteConfigModal
         open={openDialog}
         closeNoteModal={handleCloseDialog}

@@ -32,4 +32,9 @@ export const notesService = {
       }
     );
   },
+  deleteNote: async(id: string) => {
+    return restClient.delete(
+      `/notes/basic_notes/${id}`, {headers: authHeader()}
+    )
+  }
 };

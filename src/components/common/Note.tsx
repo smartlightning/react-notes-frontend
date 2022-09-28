@@ -18,7 +18,7 @@ interface NotesInterface {
 const Note: FC<NotesInterface> = ({ note, handleDelete, handleEdit }) => {
   return (
     <div style={{ textAlign: 'left' }}>
-      <Card sx={{ maxWidth: 300, backgroundColor: '#F7ECDE' }}>
+      <Card sx={{ width: 300, height: 300, backgroundColor: '#F7ECDE' }}>
         <CardContent>
           <Typography variant='h5' component='div'>
             {note.notesTitle}
