@@ -65,13 +65,13 @@ const NotesDashboard = () => {
     <div className='App'>
       <h1>Notes Dashboard</h1>
       <h2>Find all notes here</h2>
-      <Button onClick={logout}>Logout</Button>
+      <Button style = {{float: 'right'}}variant='contained' onClick={logout}>Logout</Button>
 
-      <IconButton onClick={handleOpenDialog}>
+      <IconButton style = {{float: 'right', paddingRight: 20}} onClick={handleOpenDialog}>
         <Add />
       </IconButton>
-      <div style={{ marginLeft: 10 }}>
-        <Grid container spacing={2} style={{ flex: '1 0 0 ' }}>
+      <div>
+        <Grid container spacing={2} style={{ flex: '1 0 0 ', alignContent: 'center' }}>
           {notes.map((note, index) => {
             noteId = note.noteId;
 
