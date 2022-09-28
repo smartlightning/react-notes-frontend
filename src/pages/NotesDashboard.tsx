@@ -63,7 +63,7 @@ const NotesDashboard = () => {
         <Add />
       </IconButton>
       <div>
-        <Grid container spacing={2} style={{ flex: '1 0 0 ', alignContent: 'center' }}>
+        <Grid container spacing={2} style={{ flex: '1 0 0 ', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
           {notes.map((note, index) => {
             let noteId = note.noteId;
             return (
