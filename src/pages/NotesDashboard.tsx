@@ -86,7 +86,7 @@ const NotesDashboard = () => {
       </div>
       <CreateNoteConfigModal
         open={openDialog}
-        closeNoteModal={handleCloseDialog}
+        closeNoteModal={() => { handleCloseDialog(); fetchData(); }}
         noteId={id}
         onSuccess={fetchData}
       />
