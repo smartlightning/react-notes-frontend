@@ -14,16 +14,8 @@ const NotesDashboard = () => {
   const { id } = useParams();
   // console.log(id);
   const [openDialog, setOpenDialog] = useState(false);
-  const [notes, setNotes] = useState<NoteProps[]>([
-    {
-      noteId: uuid4(),
-      notesTitle: 'Example title',
-      note: 'test',
-      createdAt: '12/12/1998',
-      username: 'me',
-    },
-  ]);
-  let noteId: string;
+  const [notes, setNotes] = useState<NoteProps[]>([]);
+
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
@@ -31,7 +23,7 @@ const NotesDashboard = () => {
     setOpenDialog(false);
   };
   const handleEditNote = (id: string) => {
-    navigate(`${NOTE}/${noteId}`);
+    //navigate(`${NOTE}/${noteId}`);
     setOpenDialog(true);
   };
   const logout = () => {
@@ -73,15 +65,20 @@ const NotesDashboard = () => {
       <div style={{ marginLeft: 10 }}>
         <Grid container spacing={2} style={{ flex: '1 0 0 ' }}>
           {notes.map((note, index) => {
-            noteId = note.noteId;
-
+            let noteId = note.noteId;
             return (
               <Grid item>
                 <Note
                   key={index}
                   note={note}
-                  handleDelete={(id) => handleDeleteNote(id)}
-                  handleEdit={(id) => handleEditNote(id)}
+                  handleDelete={async () => {
+                    await handleDeleteNote(noteId);
+                    fetchData();
+                  }}
+                  handleEdit={async () => {
+                    await handleEditNote(noteId);
+                    fetchData();
+                  }}
                 />
               </Grid>
             );
