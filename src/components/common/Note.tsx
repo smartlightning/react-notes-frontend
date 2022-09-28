@@ -24,7 +24,7 @@ const Note: FC<NotesInterface> = ({ note, handleDelete, handleEdit }) => {
             {note.notesTitle}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-            Date: {note.createdAt}
+            Date: {(new Date(note.createdAt)).toLocaleString('de-DE')}
           </Typography>
           <Typography variant='body2'>
             Author: {note.username}
